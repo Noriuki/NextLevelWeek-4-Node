@@ -1,21 +1,35 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import { User } from "../models/User";
+import { getCustomRepository } from "typeorm";
+import { UserRepository } from "../repositories/UserRepository";
+import * as yup from "yup";
+import { AppError } from "../errors/AppError";
 
-export default class UserController {
+class UserController {
+  /* create */
   static async create(req: Request, res: Response) {
     const { name, email } = req.body;
 
-    const userRepository = getRepository(User);
+    const schema = yup.object().shape({
+      name: yup.string().required(),
+      email: yup.string().email().required(),
+    });
+
+    // if (!(await schema.isValid(req.body)))
+    //   return res.status(400).json({ error: "Validation Failed!" });
+    try {
+      await schema.validate(req.body, { abortEarly: false });
+    } catch (error) {
+      throw new AppError(error);
+    }
+
+    const userRepository = getCustomRepository(UserRepository);
 
     const userExists = await userRepository.findOne({
       email,
     });
 
     if (userExists) {
-      return res.status(400).json({
-        error: "user already exists!",
-      });
+      throw new AppError("User already exists!");
     }
 
     const user = userRepository.create({
@@ -25,6 +39,8 @@ export default class UserController {
 
     await userRepository.save(user);
 
-    return res.json(user);
+    return res.status(201).json(user);
   }
 }
+
+export { UserController };

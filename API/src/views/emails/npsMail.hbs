@@ -1,0 +1,54 @@
+<style>
+  .container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .answers {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+    justify-content: space-between;
+  }
+  .answers label {
+    font-size: 12px;
+    color: gray;
+    margin: 0 5px;
+  }
+  .value {
+    padding: 10px;
+    margin: 2px;
+    background-color: #8257e6;
+    color: #FFF;
+    border-radius: 5px;
+    width: 15px;
+    text-decoration: none;
+    text-align: center;
+  }
+</style>
+
+<div class="container">
+
+  <p><italic>olá {{name}}, tudo bem?</italic></p>
+  <h3>{{title}}</h3>
+  <strong>{{description}}</strong>
+
+  <div class="answers">
+    <label for="1"> Pouco provável </label>
+    <a id="1" class="value" href="{{link}}/1/?u={{id}}">1</a>
+    <a class="value" href="{{link}}/2/?u={{id}}">2</a>
+    <a class="value" href="{{link}}/3/?u={{id}}">3</a>
+    <a class="value" href="{{link}}/4/?u={{id}}">4</a>
+    <a class="value" href="{{link}}/5/?u={{id}}">5</a>
+    <a class="value" href="{{link}}/6/?u={{id}}">6</a>
+    <a class="value" href="{{link}}/7/?u={{id}}">7</a>
+    <a class="value" href="{{link}}/8/?u={{id}}">8</a>
+    <a class="value" href="{{link}}/9/?u={{id}}">9</a>
+    <a id="10" class="value" href="{{link}}/10/?u={{id}}">10</a>
+    <label for="10" > Muito provável </label>
+  </div>
+
+  <strong>Sua opnião vale muito para gente! ❤️</strong>
+</div>
